@@ -75,6 +75,8 @@ if __name__ == '__main__':
         print('-' * 20)
 
         train(model, criterion, miner, train_loader, optimizer, logger, epoch, device)
-        _temp_metrics, _temp_labels = test(model, test_loader, epoch, device)
-        test_predicted_metrics.append(_temp_metrics)
-        test_true_labels.append(_temp_labels)
+        if epoch % 10 == 0:
+            torch.save(model.state_dict(), f'models/ep{epoch}.pt')
+        # _temp_metrics, _temp_labels = test(model, test_loader, epoch, device)
+        # test_predicted_metrics.append(_temp_metrics)
+        # test_true_labels.append(_temp_labels)
