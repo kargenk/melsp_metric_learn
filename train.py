@@ -52,11 +52,8 @@ if __name__ == '__main__':
 
     # データセットの準備
     train_dir = Path.cwd().joinpath('data/log_melsp/train/')
-    test_dir = Path.cwd().joinpath('data/log_melsp//test/')
     train_dataset = MelspMetricDataset(train_dir)
-    test_dataset = MelspMetricDataset(test_dir)
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
     # モデルと損失関数，最適化手法
     model = MelspMap().to(device)
@@ -77,6 +74,3 @@ if __name__ == '__main__':
         train(model, criterion, miner, train_loader, optimizer, logger, epoch, device)
         if epoch % 10 == 0:
             torch.save(model.state_dict(), f'models/ep{epoch}.pt')
-        # _temp_metrics, _temp_labels = test(model, test_loader, epoch, device)
-        # test_predicted_metrics.append(_temp_metrics)
-        # test_true_labels.append(_temp_labels)
